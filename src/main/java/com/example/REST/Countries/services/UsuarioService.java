@@ -7,5 +7,6 @@ import org.springframework.http.ResponseEntity;
 public interface UsuarioService {
 
     Usuario findByEmail(String email);
+    boolean existsByEmail(String email);
     ResponseEntity<?> registerUsers(UsuarioRegister usuarioRegister);
 }

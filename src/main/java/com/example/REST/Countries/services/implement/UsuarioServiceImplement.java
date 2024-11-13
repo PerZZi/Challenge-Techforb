@@ -27,8 +27,17 @@ public class UsuarioServiceImplement implements UsuarioService {
     }
 
     @Override
+    public boolean existsByEmail(String email) {
+        return usuarioRepository.existsByEmail(email);
+    }
+
+    @Override
     public ResponseEntity<?> registerUsers(UsuarioRegister usuarioRegister) {
 
+
+        if(existsByEmail(usuarioRegister.getEmail())){
+            return new ResponseEntity<>("Eese emial ya esta en uso", HttpStatus.BAD_REQUEST);
+        }
 
         if(usuarioRegister.getName().isBlank()){
             return new ResponseEntity<>("El nombre del usuario no puede estar vacio", HttpStatus.BAD_REQUEST);
@@ -46,7 +55,7 @@ public class UsuarioServiceImplement implements UsuarioService {
             return new ResponseEntity<>("La contraseña del usuario no puede estar vacia", HttpStatus.BAD_REQUEST);
         }
 
-        Usuario usuario = new Usuario(usuarioRegister.getName(),usuarioRegister.getLastName(),usuarioRegister.getEmail(),usuarioRegister.getPassword());
+        Usuario usuario = new Usuario(usuarioRegister.getName(),usuarioRegister.getLastName(),usuarioRegister.getEmail(),passwordEncoder.encode(usuarioRegister.getPassword()));
 
         usuarioRepository.save(usuario);
 
