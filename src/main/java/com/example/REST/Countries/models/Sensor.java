@@ -1,5 +1,6 @@
 package com.example.REST.Countries.models;
 
+import com.example.REST.Countries.models.enums.SensorType;
 import com.example.REST.Countries.models.enums.State;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,30 +8,28 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Planta {
+public class Sensor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String location;
     @Enumerated(EnumType.STRING)
     private State state = State.ACTIVE;
-    @OneToMany(mappedBy = "planta", fetch = FetchType.EAGER)
-    private List<Sensor> sensorList = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    private SensorType sensorType;
+    @ManyToOne
+    private Planta planta;
 
 
-    public Planta(String name, String location, State state) {
+    public Sensor(String name, State state, SensorType sensorType) {
         this.name = name;
-        this.location = location;
         this.state = state;
+        this.sensorType = sensorType;
     }
 }
