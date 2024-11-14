@@ -27,16 +27,40 @@ public class UsuarioServiceImplement implements UsuarioService {
     }
 
     @Override
+    public Usuario findById(Long id) {
+        return usuarioRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public UsuarioResponse getUser(Long id) {
+
+        Usuario usuario = usuarioRepository.findById(id).orElse(null);
+
+        if(usuario == null){
+            return null;// agregar exceocion mas adelante
+        }
+
+        UsuarioResponse usuarioResponse = new UsuarioResponse(usuario);
+        usuarioResponse.getId();
+        usuarioResponse.getName();
+        usuarioResponse.getLastName();
+        usuarioResponse.getEmail();
+        usuarioResponse.getRol();
+
+        return usuarioResponse;
+    }
+
+    @Override
     public boolean existsByEmail(String email) {
         return usuarioRepository.existsByEmail(email);
     }
 
     @Override
-    public ResponseEntity<?> registerUsers(UsuarioRegister usuarioRegister) {
+    public ResponseEntity<String> registerUsers(UsuarioRegister usuarioRegister) {
 
 
         if(existsByEmail(usuarioRegister.getEmail())){
-            return new ResponseEntity<>("Eese emial ya esta en uso", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Ese emial ya esta en uso", HttpStatus.BAD_REQUEST);
         }
 
         if(usuarioRegister.getName().isBlank()){
