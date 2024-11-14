@@ -3,8 +3,10 @@ package com.example.REST.Countries.dtos;
 import com.example.REST.Countries.models.Usuario;
 import com.example.REST.Countries.models.enums.Rol;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 public class UsuarioResponse {
 
     private Long id;
