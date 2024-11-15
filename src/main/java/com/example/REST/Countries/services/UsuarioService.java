@@ -9,7 +9,7 @@ public interface UsuarioService {
 
     Usuario findByEmail(String email);
     Usuario findById(Long id);
-    UsuarioResponse getUser(Long id);
+    UsuarioResponse getUser(String email);
     boolean existsByEmail(String email);
     ResponseEntity<String> registerUsers(UsuarioRegister usuarioRegister);
 }

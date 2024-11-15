@@ -5,6 +5,7 @@ import com.example.REST.Countries.dtos.UsuarioResponse;
 import com.example.REST.Countries.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,8 +16,8 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping("/profile")
-    public UsuarioResponse getProfile(@PathVariable Long id){
-        return usuarioService.getUser(id);
+    public UsuarioResponse getProfile(Authentication authentication){
+        return usuarioService.getUser(authentication.getName());
     }
 
     @PostMapping("/register")

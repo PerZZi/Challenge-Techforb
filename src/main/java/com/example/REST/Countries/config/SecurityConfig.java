@@ -30,7 +30,10 @@ public class SecurityConfig {
                         HeadersConfigurer.FrameOptionsConfig::disable))
 
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/user/profile").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/register","/planta/create").permitAll()
+                        .requestMatchers(HttpMethod.PUT,"/planta/update").permitAll()
+                        .requestMatchers(HttpMethod.PATCH,"/planta/delete").permitAll()
                         .requestMatchers(HttpMethod.GET, "country/all").permitAll()
 
                 )

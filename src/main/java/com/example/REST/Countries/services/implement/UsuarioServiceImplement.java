@@ -33,12 +33,12 @@ public class UsuarioServiceImplement implements UsuarioService {
     }
 
     @Override
-    public UsuarioResponse getUser(Long id) {
+    public UsuarioResponse getUser(String email) {
 
-        Usuario usuario = usuarioRepository.findById(id).orElse(null);
+        Usuario usuario = usuarioRepository.findByEmail(email);
 
         if(usuario == null){
-            throw new UserNullException("Usuario con id " + id + " no encontrado.");
+            throw new UserNullException("Usuario con id " + email + " no encontrado.");
         }
 
         UsuarioResponse usuarioResponse = new UsuarioResponse(usuario);
