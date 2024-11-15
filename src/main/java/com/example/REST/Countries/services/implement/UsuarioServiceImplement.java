@@ -5,6 +5,7 @@ import com.example.REST.Countries.dtos.UsuarioResponse;
 import com.example.REST.Countries.models.Usuario;
 import com.example.REST.Countries.repositories.UsuarioRepository;
 import com.example.REST.Countries.services.UsuarioService;
+import com.example.REST.Countries.utils.UserNullException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class UsuarioServiceImplement implements UsuarioService {
         Usuario usuario = usuarioRepository.findById(id).orElse(null);
 
         if(usuario == null){
-            return null;// agregar exceocion mas adelante
+            throw new UserNullException("Usuario con id " + id + " no encontrado.");
         }
 
         UsuarioResponse usuarioResponse = new UsuarioResponse(usuario);
