@@ -32,4 +32,9 @@ public class Planta {
         this.name = name;
         this.location = location;
     }
+
+    public void addSensor(Sensor sensor){
+        sensor.setPlanta(this);
+        sensorList.add(sensor);
+    }
 }

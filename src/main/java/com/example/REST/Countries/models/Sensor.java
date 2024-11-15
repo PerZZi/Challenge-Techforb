@@ -39,4 +39,14 @@ public class Sensor {
         this.state = state;
         this.sensorType = sensorType;
     }
+
+    public void addLectura(Lectura lectura){
+        lectura.setSensor(this);
+        lecturasList.add(lectura);
+    }
+
+    public void addAlerta(Alerta alerta){
+        alerta.setSensor(this);
+        alertaList.add(alerta);
+    }
 }
