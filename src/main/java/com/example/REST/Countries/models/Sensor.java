@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @Getter
@@ -25,6 +28,10 @@ public class Sensor {
     private SensorType sensorType;
     @ManyToOne
     private Planta planta;
+    @OneToMany(mappedBy = "sensor", fetch = FetchType.EAGER)
+    private List<Lectura> lecturasList = new ArrayList<>();
+    @OneToMany(mappedBy = "sensor", fetch = FetchType.EAGER)
+    private List<Alerta> alertaList = new ArrayList<>();
 
 
     public Sensor(String name, State state, SensorType sensorType) {
