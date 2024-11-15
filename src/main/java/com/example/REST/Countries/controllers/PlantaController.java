@@ -18,12 +18,12 @@ public class PlantaController {
         return plantaService.createPlanta(plantaCreate);
     }
 
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updatePlanta(@RequestBody PlantaCreate plantaCreate, @RequestParam String name){
         return plantaService.updatePlanta(plantaCreate,name);
     }
 
-    @PatchMapping("/delete")
+    @PatchMapping("/delete/{id}")
     public ResponseEntity<String> deletePlanta(@PathVariable Long id){
         return plantaService.deletePlanta(id);
     }
