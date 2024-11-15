@@ -28,9 +28,8 @@ public class Planta {
     private List<Sensor> sensorList = new ArrayList<>();
 
 
-    public Planta(String name, String location, State state) {
+    public Planta(String name, String location) {
         this.name = name;
         this.location = location;
-        this.state = state;
     }
 }

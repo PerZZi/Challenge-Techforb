@@ -8,5 +8,4 @@ public class PlantaCreate {
 
     private String name;
     private String location;
-    private State state;
 }

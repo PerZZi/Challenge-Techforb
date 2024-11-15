@@ -36,15 +36,11 @@ public class PlantaServiceImplement implements PlantaService {
             return new ResponseEntity<>("La localizacion no puede estar vacia", HttpStatus.BAD_REQUEST);
         }
 
-        if(plantaCreate.getState() == null || plantaCreate.getState() == State.DISABLE){
-            return new ResponseEntity<>("El estado no puede ser deshabilitado", HttpStatus.BAD_REQUEST);
-        }
-
         if(existsByName(plantaCreate.getName())){
             return new ResponseEntity<>("La planta ya existe", HttpStatus.BAD_REQUEST);
         }
 
-        Planta planta = new Planta(plantaCreate.getName(),plantaCreate.getLocation(),plantaCreate.getState());
+        Planta planta = new Planta(plantaCreate.getName(),plantaCreate.getLocation());
 
         plantaRepository.save(planta);
 
@@ -62,7 +58,6 @@ public class PlantaServiceImplement implements PlantaService {
 
         planta.setName(plantaCreate.getName());
         planta.setLocation(plantaCreate.getLocation());
-        planta.setState(plantaCreate.getState());
 
         plantaRepository.save(planta);
 
