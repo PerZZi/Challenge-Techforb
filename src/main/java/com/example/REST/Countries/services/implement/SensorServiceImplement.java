@@ -1,9 +1,15 @@
 package com.example.REST.Countries.services.implement;
 
+import com.example.REST.Countries.dtos.AlertaResponse;
+import com.example.REST.Countries.dtos.LecturaResponse;
 import com.example.REST.Countries.dtos.SensorCreate;
 import com.example.REST.Countries.dtos.SensorResponse;
+import com.example.REST.Countries.models.Alerta;
+import com.example.REST.Countries.models.Lectura;
 import com.example.REST.Countries.models.Sensor;
 import com.example.REST.Countries.models.enums.State;
+import com.example.REST.Countries.repositories.AlertaRespository;
+import com.example.REST.Countries.repositories.LecturaRespository;
 import com.example.REST.Countries.repositories.SensorRepository;
 import com.example.REST.Countries.services.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +17,44 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class SensorServiceImplement implements SensorService {
 
     @Autowired
     private SensorRepository sensorRepository;
 
+    @Autowired
+    private LecturaRespository lecturaRespository;
+
+    @Autowired
+    private AlertaRespository alertaRespository;
+
     @Override
     public Sensor findById(Long id) {
         return sensorRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Lectura> getAllLecturas() {
+        return lecturaRespository.findAll();
+    }
+
+    @Override
+    public List<LecturaResponse> getAllLecturasDTO() {
+        return getAllLecturas().stream().map(LecturaResponse ::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Alerta> getAllAlertas() {
+        return alertaRespository.findAll();
+    }
+
+    @Override
+    public List<AlertaResponse> getAllAlertasDTO() {
+        return getAllAlertas().stream().map(AlertaResponse::new).collect(Collectors.toList());
     }
 
     @Override
