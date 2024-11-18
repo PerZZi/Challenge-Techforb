@@ -48,7 +48,7 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET, "/user/profile").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/user/register","/planta/create","sensor/create").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/register","/auth/login","/planta/create","sensor/create").permitAll()
                         .requestMatchers(HttpMethod.PUT,"/planta/update").permitAll()
                         .requestMatchers(HttpMethod.PATCH,"/planta/delete").permitAll()
                         .requestMatchers(HttpMethod.GET, "country/all").permitAll()

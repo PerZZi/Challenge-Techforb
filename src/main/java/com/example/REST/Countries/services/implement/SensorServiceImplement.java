@@ -6,11 +6,13 @@ import com.example.REST.Countries.dtos.SensorCreate;
 import com.example.REST.Countries.dtos.SensorResponse;
 import com.example.REST.Countries.models.Alerta;
 import com.example.REST.Countries.models.Lectura;
+import com.example.REST.Countries.models.Planta;
 import com.example.REST.Countries.models.Sensor;
 import com.example.REST.Countries.models.enums.State;
 import com.example.REST.Countries.repositories.AlertaRespository;
 import com.example.REST.Countries.repositories.LecturaRespository;
 import com.example.REST.Countries.repositories.SensorRepository;
+import com.example.REST.Countries.services.PlantaService;
 import com.example.REST.Countries.services.SensorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,9 @@ public class SensorServiceImplement implements SensorService {
 
     @Autowired
     private AlertaRespository alertaRespository;
+
+    @Autowired
+    private PlantaService plantaService;
 
     @Override
     public Sensor findById(Long id) {
@@ -72,7 +77,15 @@ public class SensorServiceImplement implements SensorService {
             return new ResponseEntity<>("El tipo de sensor no puede estar vacio o nulo", HttpStatus.BAD_REQUEST);
         }
 
+        if (sensorCreate.getPlanta().getId() == null){
+            return new ResponseEntity<>("El id de la planta no puede ser nulo", HttpStatus.BAD_REQUEST);
+        }
+
+        Planta planta = plantaService.findById(sensorCreate.getPlanta().getId());
+
         Sensor sensor = new Sensor(sensorCreate.getName(),sensorCreate.getState(),sensorCreate.getSensorType());
+
+        planta.addSensor(sensor);
 
         sensorRepository.save(sensor);
 

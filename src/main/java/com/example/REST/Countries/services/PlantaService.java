@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 public interface PlantaService {
 
     Planta findByName(String name);
+    Planta findById(Long id);
     boolean existsByName(String name);
     ResponseEntity<String> createPlanta(PlantaCreate plantaCreate);
     ResponseEntity<String> updatePlanta(PlantaCreate plantaCreate, String name);

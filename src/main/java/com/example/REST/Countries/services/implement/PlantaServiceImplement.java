@@ -21,6 +21,11 @@ public class PlantaServiceImplement implements PlantaService {
     }
 
     @Override
+    public Planta findById(Long id) {
+        return plantaRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public boolean existsByName(String name) {
         return plantaRepository.existsByName(name);
     }
